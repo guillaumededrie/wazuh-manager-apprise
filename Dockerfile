@@ -11,10 +11,10 @@ RUN /var/ossec/framework/python/bin/pip3 install "apprise==1.9.9"
 # `data_tmp` folder.
 # See: https://github.com/wazuh/wazuh-docker/blob/7af31ddfb4d7dd72acbd0789728185c525a64755/build-docker-images/wazuh-manager/config/permanent_data.sh
 # See: https://github.com/wazuh/wazuh-docker/blob/7af31ddfb4d7dd72acbd0789728185c525a64755/build-docker-images/wazuh-manager/config/etc/cont-init.d/0-wazuh-init#L61
-COPY resources/apprise resources/apprise.py /var/ossec/data_tmp/exclusion/var/ossec/integrations/.
+COPY resources/custom-apprise resources/custom-apprise.py /var/ossec/data_tmp/exclusion/var/ossec/integrations/.
 RUN \
-        chmod 750 /var/ossec/data_tmp/exclusion/var/ossec/integrations/apprise* \
-        && chown root:wazuh /var/ossec/data_tmp/exclusion/var/ossec/integrations/apprise*
+        chmod 750 /var/ossec/data_tmp/exclusion/var/ossec/integrations/custom-apprise* \
+        && chown root:wazuh /var/ossec/data_tmp/exclusion/var/ossec/integrations/custom-apprise*
 
 
 FROM production AS test
