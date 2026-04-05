@@ -14,8 +14,11 @@ logging.basicConfig(
 )
 LOGGER = logging.getLogger("wazuh-apprise")
 
+ALERT_INDEX = 1
+WEBHOOK_INDEX = 3
 
-def main():
+
+def main(args):
     """
     Custom Integration of Apprise for Wazuh.
 
@@ -37,17 +40,13 @@ def main():
 
     LOGGER.info("Read configuration parameters")
     try:
-        alert_file = Path(sys.argv[1])
-        # NOTE: These settings are not used at the moment.
-        # user = sys.argv[2].split(':')[0]
-        # api_key = sys.argv[2].split(':')[1]
-        hook_url = sys.argv[3]
+        alert_file = Path(args[ALERT_INDEX])
+        hook_url = args[WEBHOOK_INDEX]
     except IndexError as e:
         LOGGER.error("CLI argument(s) missing!")
         raise e
 
-    if not hook_url.startswith("null://"):
-        apobj.add(hook_url)
+    apobj.add(hook_url)
 
     LOGGER.info("Read the alert file")
     try:
@@ -72,4 +71,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)
