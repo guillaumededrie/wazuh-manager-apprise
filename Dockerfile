@@ -3,8 +3,13 @@ FROM wazuh/wazuh-manager:4.14.4@sha256:20487bc98a1e80012f61618d448b34dfb99d2e1d6
 # See: https://github.com/wazuh/wazuh-docker/blob/7af31ddfb4d7dd72acbd0789728185c525a64755/build-docker-images/wazuh-manager/config/permanent_data.env
 COPY resources/permanent_data.env /
 
-# Use the already available pip3 package, used by `apprise` bash script
-RUN /var/ossec/framework/python/bin/pip3 install "apprise==1.9.9"
+# Install requirements
+# We need to use the already available pip3 package as it will the one used by
+# `src/apprise` bash script.
+COPY src/requirements.txt /tmp/.
+RUN \
+        /var/ossec/framework/python/bin/pip3 install --require-hashes --requirement /tmp/requirements.txt \
+        && rm /tmp/requirements.txt
 
 # See: https://documentation.wazuh.com/current/user-manual/manager/integration-with-external-apis.html#creating-an-integration-script
 # The documention doesn't apply totaly to Docker container, as some file are copied from

@@ -1,6 +1,9 @@
 base_image_name := `awk 'toupper($1) == "FROM" {print $2; exit}' Dockerfile`
 local_image_name := "wazuh-apprise:local"
 
+generate-requirements apprise_version:
+    echo "apprise=={{apprise_version}}" | uvx --from "pip-tools" pip-compile --generate-hashes --output-file src/requirements.txt -
+
 print-base-image-name:
     @echo "The Base image is: {{base_image_name}}"
 
