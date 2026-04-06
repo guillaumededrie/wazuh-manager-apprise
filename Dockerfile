@@ -1,4 +1,4 @@
-FROM wazuh/wazuh-manager:4.14.4@sha256:20487bc98a1e80012f61618d448b34dfb99d2e1d6912ea3e7324a6ed96531d2f AS production
+FROM wazuh/wazuh-manager:4.14.4@sha256:5a065930682d728e3939a3a34b7c9bc28d55b22d3d93c2fe3cc19cf76d67e8e8 AS production
 
 ARG WAZUH_VERSION
 ARG APPRISE_VERSION
