@@ -1,0 +1,6 @@
+[project]
+name = "wazuh-apprise-integration"
+version = "0.0.1"
+dependencies = [
+    "apprise==1.9.9"
+]
