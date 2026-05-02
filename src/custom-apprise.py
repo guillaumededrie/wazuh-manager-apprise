@@ -56,11 +56,14 @@ def main(args):
         raise e
 
     LOGGER.info("Extract issue fields")
-    notification_title = alert_json["rule"]["description"] or "Undefined"
+    alert_rule = alert_json.get("rule", {})
+    alert_agent = alert_json.get("agent", {})
+
+    notification_title = alert_rule.get("description", "Unknown")
     notification_body = (
-        f"- Rule ID: {alert_json['rule']['id']}"
-        f"\n- Alert level: {alert_json['rule']['level']}"
-        f"\n- Agent: {alert_json['agent']['name']} ({alert_json['agent']['id']})"
+        f"- Rule ID: {alert_rule.get('id', 'unknown')}"
+        f"\n- Alert level: {alert_rule.get('level', 'unknown')}"
+        f"\n- Agent: {alert_agent.get('name', 'unknown')}"
     )
 
     LOGGER.info("Send notification")
