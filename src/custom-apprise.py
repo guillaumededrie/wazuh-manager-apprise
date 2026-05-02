@@ -64,6 +64,7 @@ def main(args):
         f"- Rule ID: {alert_rule.get('id', 'unknown')}"
         f"\n- Alert level: {alert_rule.get('level', 'unknown')}"
         f"\n- Agent: {alert_agent.get('name', 'unknown')}"
+        f"\n- Log: {alert_json.get('full_log', 'unknown')}"
     )
 
     LOGGER.info("Send notification")
