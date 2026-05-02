@@ -3,7 +3,7 @@ FROM wazuh/wazuh-manager:4.14.4@sha256:20487bc98a1e80012f61618d448b34dfb99d2e1d6
 ARG WAZUH_VERSION
 ARG APPRISE_VERSION
 
-LABEL org.opencontainers.image.version="${WAZUH_VERSION}-apprise${APPRISE_VERSION}"
+LABEL org.opencontainers.image.version="manager-${WAZUH_VERSION}-apprise-${APPRISE_VERSION}"
 LABEL com.wazuh.manager.version="${WAZUH_VERSION}"
 LABEL com.apprise.version="${APPRISE_VERSION}"
 
