@@ -46,16 +46,16 @@ jobs:
       - name: Extract Tools versions from tag
         id: extract_tools_versions
         run: |
-          if [[ ! "${TAG_NAME}" =~ ^[0-9]+\.[0-9]+\.[0-9]+-apprise[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Error: Tag must follow 'X.Y.Z-appriseA.B.C' format."
+          if [[ ! "${TAG_NAME}" =~ ^manager-[0-9]+\.[0-9]+\.[0-9]+-apprise-[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: Tag must follow 'manager-X.Y.Z-appriseA.B.C' format."
             exit 1
           fi
 
-          # Extract Wazuh: Everything before "-apprise"
-          WAZUH_VERSION=$(echo $TAG_NAME | sed 's/-apprise.*//')
+          # Extract Wazuh: Everything between "manager-" and "-apprise"
+          WAZUH_VERSION=$(echo $TAG_NAME | sed 's/manager-\(.*\)-apprise.*/\1/')
 
-          # Extract Apprise: Everything after "-apprise"
-          APPRISE_VERSION=$(echo $TAG_NAME | sed 's/.*-apprise//')
+          # Extract Apprise: Everything after "apprise-"
+          APPRISE_VERSION=$(echo $TAG_NAME | sed 's/.*-apprise-//')
 
           # Set outputs for use in later steps
           echo "wazuh_version=$WAZUH_VERSION" >> $GITHUB_OUTPUT
