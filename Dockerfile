@@ -15,7 +15,7 @@ COPY resources/permanent_data.env /
 # `src/apprise` bash script.
 COPY src/requirements.txt /tmp/
 RUN \
-        /var/ossec/framework/python/bin/pip3 install --require-hashes --requirement /tmp/requirements.txt \
+        /var/ossec/framework/python/bin/pip3 install --no-cache-dir --require-hashes --requirement /tmp/requirements.txt \
         && rm /tmp/requirements.txt
 
 # See: https://documentation.wazuh.com/current/user-manual/manager/integration-with-external-apis.html#creating-an-integration-script
