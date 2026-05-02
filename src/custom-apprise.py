@@ -68,10 +68,12 @@ def main(args):
     )
 
     LOGGER.info("Send notification")
-    apobj.notify(
+    notify_success = apobj.notify(
         title=notification_title,
         body=notification_body,
     )
+    if notify_success:
+        LOGGER.info("Notification sent!")
 
 
 if __name__ == "__main__":
