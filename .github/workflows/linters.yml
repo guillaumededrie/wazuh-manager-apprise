@@ -30,5 +30,23 @@ jobs:
         with:
           go-version: "1.26.1"
 
+      - name: Set up Hadolint
+        shell: bash
+        working-directory: ${{ runner.temp }}
+        env:
+          HADOLINT_VERSION: 2.14.0
+          HADOLINT_PKG_NAME: "hadolint-linux-x86_64"
+          HADOLINT_PKG_SHA256: "6bf226944684f56c84dd014e8b979d27425c0148f61b3bd99bcc6f39e9dc5a47"
+        run: |
+          echo "Download and verify Package"
+          curl -fsSLO https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/${HADOLINT_PKG_NAME}
+          echo "${HADOLINT_PKG_SHA256} ${HADOLINT_PKG_NAME}" | sha256sum --check
+          sudo mv ${HADOLINT_PKG_NAME} /usr/local/bin/hadolint
+          chmod +x /usr/local/bin/hadolint
+          if ! command -v hadolint &> /dev/null; then
+            echo "ERROR: Hadolint installation completed but the command is not available"
+            exit 1
+          fi
+
       - name: Run prek (pre-commit)
         uses: j178/prek-action@0bb87d7f00b0c99306c8bcb8b8beba1eb581c037 # v1.1.1
